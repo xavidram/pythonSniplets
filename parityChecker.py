@@ -12,7 +12,9 @@ class parityCheck:
 
 		if self.error == True:
 			self.error = False
-			self.FixError()
+			print("\nError found in bit " + str(self.errorBit) + "... Fixing Error...\n")
+			self.fixError()
+			print("Rerunning parity analysis....")
 			self.analyze()
 		else:
 			print("Test Complete!")
@@ -25,24 +27,21 @@ class parityCheck:
 				Parity bit 1 analysis
 				P1 = {D3,D5,D7}
 				"""
-				p1Data = []
-				p1Data.extend(self.bits[0] + self.bits[2] + self.bits[4])
+				p1Data = self.bits[0]+ self.bits[2]+ self.bits[4]
 				self.parityAnalysis(p1Data, "1" , self.bits[6])
 			elif P == 2:
 				"""
 				Parity bit 2 analysis
 				P2 = {D3,D6,D7}
 				"""
-				p2Data = []
-				p2Data.extend([self.bits[0], self.bits[1], self.bits[4]])
+				p2Data = self.bits[0]+ self.bits[1]+ self.bits[4]
 				self.parityAnalysis(p2Data, "2", self.bits[5])
 			elif P == 4:
 				"""
 				Parity bit 4 analysis
 				P4 = {D5,D6,D7}
 				"""
-				p4Data = []
-				p4Data.extend([self.bits[0], self.bits[1], self.bits[2]])
+				p4Data = self.bits[0]+ self.bits[1]+ self.bits[2]
 				self.parityAnalysis(p4Data, "4", self.bits[3])
 			else:
 				#Error, no other parity bits available besides 1,2 and 4
