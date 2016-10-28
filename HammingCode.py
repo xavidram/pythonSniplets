@@ -16,7 +16,32 @@ class HammingCode:
 		self.bits = prepped
 		#for i in [1,2,4,8,16]:
 		#	self.encode(i)
-		self.encode(4)
+		self.selfEncode(1)
+
+	def selfEncode(self,P):
+		pData = []
+		if P == 1:
+			pData.extend(self.bits[::P+1])
+			pData.pop(0)
+			#self.set_parityBit(pData,P)
+			print(self.bits)
+			print(pData)
+		elif P in [2,4,8,16,32,64,128,256]:
+			for i in range( (P-1), len(self.bits), (P*2) ):
+				for j in range(0,P):
+					try:
+						pData.append(self.bits[i+j])
+					except IndexError:
+						print("Index out of range at " + (i+j))
+
+			print(self.bits)
+			print(pData)
+
+	def set_parityBit(self,pData,P):
+		if pData.count('1') % 2 == 0:
+			self.bits[P-1] = '0'
+		elif pData.count('1') % 2 != 0:
+			self.bits[P-1] = '1'
 
 	def encode(self,P):
 		if self.bits != None:
@@ -39,11 +64,14 @@ class HammingCode:
 					pData = []
 					[ pData.extend([self.bits[i], self.bits[i+1] ]) for i in range(P-1,len(self.bits),4) ]
 					pData.pop(0)
+					print(self.bits)
+					print(pData)
 				elif P == 4:
 					"""
 					P4 = {4,5,6,7,12,13,14,15,20,21}
 					- check 4, skip 4, check 4, etc...
 					"""
+					pData = []
 
 				elif P == 8:
 					"""
